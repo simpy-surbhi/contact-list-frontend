@@ -5,58 +5,15 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  makeStyles,
   Snackbar,
   Typography,
 } from '@material-ui/core';
 import { KeyboardArrowRight } from '@material-ui/icons';
+import { Config } from 'config/Config';
 import * as React from 'react';
-import { Contact } from '../../../model/Contacts';
-import { DetailDialog } from './DetailDialog';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    overflow: 'auto',
-  },
-  grid: {
-    textAlign:'right',
-  },
-  card: {
-    marginBottom: theme.spacing(2),
-    width:"100%",
-  },
-  cardMedia: {
-    borderRadius: '50%',
-    height: 30,
-    width: 30,
-    padding: theme.spacing(2),
-  },
-  cardContent: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  typography: {
-    paddingLeft: theme.spacing(1.5),
-    textAlign: 'left',
-    width: '90%',
-  },
-
-  info: {
-    width:"100%",
-textAlign:"center",
-margin:20,
-  },
-
-  img: {
-    width: '10%',
-    textAlign: 'right',
-  },
-  snackbarStyle:{
-  backgroundColor:"red"
-  },
-}));
+import { Contact } from '../../../../model/Contacts';
+import { DetailDialog } from './../DetailDialog';
+import { useStyles } from './styles';
 
 interface Props {
   tabValue: String;
@@ -74,20 +31,21 @@ export const AddressList: React.FC<Props> = ({ tabValue, setContacts, contacts }
   const displayContacts = contacts.filter(
     (f) => f.name.first.charAt(0).toLowerCase() === tabValue.toLowerCase(),
   );
-  const url = `https://randomuser.me/api?results=50`;
-  const fetchContacts = async () => {
-    try {
-    const resp = await fetch(url);
-    const respJson = await resp.json();
-    setContacts(respJson.results);
-    } catch(error) {
-      setError(true);
-    }
-  }
+  const url = `${Config.API_BASE_URL}${Config.CONTACTS_SIZE}`;
+  
 
   React.useEffect(() => {
-    fetchContacts()
-  },[]);
+    const fetchContacts = async () => {
+      try {
+      const resp = await fetch(url);
+      const respJson = await resp.json();
+      setContacts(respJson.results);
+      } catch(error) {
+        setError(true);
+      }
+    }
+    fetchContacts();
+  },[setContacts, url]);
  
   return (
     <React.Fragment>
@@ -95,7 +53,7 @@ export const AddressList: React.FC<Props> = ({ tabValue, setContacts, contacts }
           <strong> No Contact(s) found! </strong>
       </Typography>}
       <Grid container className={classes.root}>
-        <Grid item xs={12} md={6} lg={6} className={classes.grid}>
+        <Grid item xs={12} md={6} lg={6}>
           {displayContacts
             ?.slice(0, Math.ceil(displayContacts.length / 2))
             .map((contact, index) => (

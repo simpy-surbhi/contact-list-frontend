@@ -1,7 +1,9 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import { Contact } from 'model';
 import * as React from 'react';
-import { AddressList, AddressTab } from './components';
+import { AddressList } from './components/List';
+import {  AddressTab } from './components/Tab';
+
 
 const useStyles = makeStyles(() => ({
   root: {
