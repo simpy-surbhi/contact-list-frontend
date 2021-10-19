@@ -1,1 +1,1 @@
-export * from './DetailDialog';
+export * from "./DetailDialog";

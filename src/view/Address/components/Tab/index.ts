@@ -1,1 +1,1 @@
-export * from './AddressTab';
+export * from "./AddressTab";

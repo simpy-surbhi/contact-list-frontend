@@ -7,13 +7,13 @@ import {
   Grid,
   Snackbar,
   Typography,
-} from '@material-ui/core';
-import { KeyboardArrowRight } from '@material-ui/icons';
-import { Config } from 'config/Config';
-import * as React from 'react';
-import { Contact } from '../../../../model/Contacts';
-import { DetailDialog } from './../DetailDialog';
-import { useStyles } from './styles';
+} from "@material-ui/core";
+import { KeyboardArrowRight } from "@material-ui/icons";
+import { Config } from "config/Config";
+import * as React from "react";
+import { Contact } from "../../../../model/Contacts";
+import { DetailDialog } from "./../DetailDialog";
+import { useStyles } from "./styles";
 
 interface Props {
   tabValue: String;
@@ -21,7 +21,11 @@ interface Props {
   contacts: Contact[];
 }
 
-export const AddressList: React.FC<Props> = ({ tabValue, setContacts, contacts }) => {
+export const AddressList: React.FC<Props> = ({
+  tabValue,
+  setContacts,
+  contacts,
+}) => {
   const classes = useStyles();
   const [showModal, setModal] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -29,29 +33,30 @@ export const AddressList: React.FC<Props> = ({ tabValue, setContacts, contacts }
   const [selectedContact, setSelectedContact] = React.useState<Contact>();
 
   const displayContacts = contacts.filter(
-    (f) => f.name.first.charAt(0).toLowerCase() === tabValue.toLowerCase(),
+    (f) => f.name.first.charAt(0).toLowerCase() === tabValue.toLowerCase()
   );
-  const url = `${Config.API_BASE_URL}${Config.CONTACTS_SIZE}`;
-  
+  const url = `${Config.API_URL}${Config.CONTACTS_SIZE}`;
 
   React.useEffect(() => {
     const fetchContacts = async () => {
       try {
-      const resp = await fetch(url);
-      const respJson = await resp.json();
-      setContacts(respJson.results);
-      } catch(error) {
+        const resp = await fetch(url);
+        const respJson = await resp.json();
+        setContacts(respJson.results);
+      } catch (error) {
         setError(true);
       }
-    }
+    };
     fetchContacts();
-  },[setContacts, url]);
- 
+  }, [setContacts, url]);
+
   return (
     <React.Fragment>
-      {(!displayContacts || displayContacts.length===0)&& <Typography variant="h5" className={classes.info}>
+      {(!displayContacts || displayContacts.length === 0) && (
+        <Typography variant="h5" className={classes.info}>
           <strong> No Contact(s) found! </strong>
-      </Typography>}
+        </Typography>
+      )}
       <Grid container className={classes.root}>
         <Grid item xs={12} md={6} lg={6}>
           {displayContacts
@@ -70,7 +75,7 @@ export const AddressList: React.FC<Props> = ({ tabValue, setContacts, contacts }
                       className={classes.cardMedia}
                     />
                     <Typography variant="h5" className={classes.typography}>
-                      {contact.name.last + ', ' + contact.name.first}
+                      {contact.name.last + ", " + contact.name.first}
                     </Typography>
                     <Box className={classes.img}>
                       <KeyboardArrowRight />
@@ -97,7 +102,7 @@ export const AddressList: React.FC<Props> = ({ tabValue, setContacts, contacts }
                       className={classes.cardMedia}
                     />
                     <Typography variant="h5" className={classes.typography}>
-                      {contact.name.last + ', ' + contact.name.first}
+                      {contact.name.last + ", " + contact.name.first}
                     </Typography>
                     <Box className={classes.img}>
                       <KeyboardArrowRight />
@@ -117,18 +122,18 @@ export const AddressList: React.FC<Props> = ({ tabValue, setContacts, contacts }
             setModal(false);
           },
           fullWidth: true,
-          maxWidth: 'md',
+          maxWidth: "md",
         }}
       />
 
-<Snackbar
-  open={error}
-  autoHideDuration={2000}
-  message="Error occurred!"
-  color="secondary"
-  onClose={() => setError(false)}
-  ContentProps={{ className:classes.snackbarStyle }} 
-/>
+      <Snackbar
+        open={error}
+        autoHideDuration={2000}
+        message="Error occurred!"
+        color="secondary"
+        onClose={() => setError(false)}
+        ContentProps={{ className: classes.snackbarStyle }}
+      />
     </React.Fragment>
   );
 };

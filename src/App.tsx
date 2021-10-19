@@ -1,7 +1,7 @@
-import { CssBaseline } from '@material-ui/core';
-import { AppTheme } from 'App.theme';
-import * as React from 'react';
-import { Address } from './view/Address';
+import { CssBaseline } from "@material-ui/core";
+import { AppTheme } from "App.theme";
+import * as React from "react";
+import { Address } from "./view/Address";
 
 interface Props {}
 
@@ -28,9 +28,9 @@ export default class App extends React.Component<Props, State> {
   public render() {
     return (
       <AppTheme>
-              {/* https://material-ui.com/style/css-baseline/ */}
-              <CssBaseline />
-              <Address />
+        {/* https://material-ui.com/style/css-baseline/ */}
+        <CssBaseline />
+        <Address />
       </AppTheme>
     );
   }

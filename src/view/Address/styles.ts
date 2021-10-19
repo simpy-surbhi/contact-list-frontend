@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
   filtersContainer: {
@@ -9,18 +9,18 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1.25),
   },
   matchContainer: {
-    display: 'flex',
+    display: "flex",
   },
   leftMatch: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
     minWidth: 200,
   },
   rightMatch: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
     minWidth: 200,
   },
   vsSeperater: {
